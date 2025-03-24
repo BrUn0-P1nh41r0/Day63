@@ -14,14 +14,15 @@ def add():
         name = request.form["book_name"]
         author = request.form["book_author"]
         rating = request.form["rating"]
-        new_book = {
-            "name": name,
-            "author": author,
-            "rating": rating
-        }
-        all_books.append(new_book)
+        if name != "" and author != "" and rating != "":
+            new_book = {
+                "name": name,
+                "author": author,
+                "rating": rating
+            }
+            all_books.append(new_book)
     print(all_books)
-    return render_template("add.html")
+    return render_template("add.html", books=all_books)
 
 if __name__ == "__main__":
     app.run(debug=True)
