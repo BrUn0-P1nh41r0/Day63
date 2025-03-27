@@ -56,6 +56,15 @@ def edit(book_id):
         return redirect(url_for('home'))
     return render_template('edit.html', book_id=book_id, book=book)
 
+@app.route("/delete/<int:book_id>")
+def delete(book_id):
+    with app.app_context():
+        book_to_delete = db.session.execute(db.select(Book).where(Book.id == book_id)).scalar_one_or_none()
+        db.session.delete(book_to_delete)
+        db.session.commit()
+    return redirect(url_for('home'))
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
